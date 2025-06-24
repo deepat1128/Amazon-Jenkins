@@ -22,6 +22,7 @@ pipeline {
                  sh 'mvn clean'
             }
         }
+    }    
 post{
 
   success{
@@ -32,7 +33,7 @@ post{
        echo 'Alert, Failure in the build'
    }
   always{
-	echo ‘ Build runs ‘
+	echo ‘ Build runs '
 }
 unstable{
 echo ‘ This run is unstable’
@@ -41,8 +42,5 @@ abort{
 echo ‘delete the dir’
 }  
 }
-
-        
-    }
 
   }
