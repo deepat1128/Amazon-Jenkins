@@ -26,14 +26,14 @@ pipeline {
 post{
 
   success{
-     echo 'Build is successfull'
+     echo ‘Build is successfull’
   }
     
   failure{
-       echo 'Alert, Failure in the build'
+       echo ‘Alert, Failure in the build’
    }
   always{
-	echo ‘ Build runs '
+	echo ‘Build runs’
 }
 unstable{
 echo ‘ This run is unstable’
