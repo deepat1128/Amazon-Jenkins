@@ -38,7 +38,7 @@ post{
 unstable{
 echo 'This run is unstable'
 }
-abort{ 
+aborted{ 
 echo 'delete the dir'
 }  
 }
