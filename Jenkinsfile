@@ -1,42 +1,79 @@
 pipeline {
     agent any
     environment {
-        // Use PATH+EXTRA to append to PATH properly
-        PATH = "/usr/bin:/bin:/opt/homebrew/bin"
+        PATH = "/usr/bin:/bin:/opt/homebrew/bin:$PATH"  // Explicitly add /usr/bin and other necessary paths
     }
     stages {
-
-        stage('pull scm') {
+        stage('Checkout Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/PraveenKuber/Amazon-Jenkins.git'
-            }
-        }
-        stage('test') {
-            steps {
-                sh 'mvn test'
+                // Pull the code from the GitHub repository
+                git url: 'https://github.com/PraveenKuber/Amazon', branch: 'main'  // Use the desired branch
             }
         }
 
-        stage('clean') {
+        stage('Build') {
             steps {
-                 sh 'mvn clean'
+                script {
+                    // Running the Maven build command
+                    echo "Building the project..."
+                    sh 'mvn clean install'
+                }
             }
         }
 
-        
+        stage('Send Slack Notification via curl') {
+            steps {
+                script {
+                    def slackWebhookUrl = 'https://hooks.slack.com/services/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'
+                    
+                    // Determine the build status
+                    def buildStatus = currentBuild.result ?: 'SUCCESS'  // Default to SUCCESS if not explicitly set
+
+                    // Create message based on build result
+                    def message = """
+                    {
+                        "text": "Jenkins Build Status: ${buildStatus}",
+                        "attachments": [
+                            {
+                                "text": "Build ${buildStatus}",
+                                "color": "${buildStatus == 'SUCCESS' ? 'good' : 'danger'}"
+                            }
+                        ]
+                    }
+                    """
+                    
+                    // Send Slack notification with build status
+                    sh """
+                    curl -X POST -H 'Content-type: application/json' --data '${message}' ${slackWebhookUrl}
+                    """
+                }
+            }
+        }
     }
-
-  post{
-
-  success{
-     echo 'Build is successfull'
-  }
-    
-  failure{
-       echo 'Alert, Failure in the build'
-   }
-
-  }
-
-
+    post {
+        always {
+            // This block ensures that a message is sent regardless of success or failure
+            script {
+                def buildStatus = currentBuild.result ?: 'SUCCESS'
+                def slackWebhookUrl = 'https://hooks.slack.com/services/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'
+                def message = """
+                {
+                    "text": "Jenkins Build Status: ${buildStatus}",
+                    "attachments": [
+                        {
+                            "text": "Build ${buildStatus}",
+                            "color": "${buildStatus == 'SUCCESS' ? 'good' : 'danger'}"
+                        }
+                    ]
+                }
+                """
+                
+                // Send the build status notification to Slack
+                sh """
+                curl -X POST -H 'Content-type: application/json' --data '${message}' ${slackWebhookUrl}
+                """
+            }
+        }
+    }
 }
+
