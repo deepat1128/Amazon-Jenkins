@@ -1,13 +1,13 @@
 pipeline {
     agent any
     environment {
-        PATH = "/usr/bin:/bin:/opt/homebrew/bin:$PATH"  // Explicitly add /usr/bin and other necessary paths
+        PATH = "/usr/bin:/bin:/home/deepa/Devops/:$PATH"  // Explicitly add /usr/bin and other necessary paths
     }
     stages {
         stage('Checkout Code') {
             steps {
                 // Pull the code from GitHub repository
-                git url: 'https://github.com/PraveenKuber/Amazon', branch: 'main'  // Use the desired branch
+                git url: 'https://github.com/deepat1128/Amazon-Jenkins, branch: 'feature'  // Use the desired branch
             }
         }
 
