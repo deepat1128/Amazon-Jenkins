@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                // Pull the code from the GitHub repository
+                // Pull the code from GitHub repository
                 git url: 'https://github.com/PraveenKuber/Amazon', branch: 'main'  // Use the desired branch
             }
         }
