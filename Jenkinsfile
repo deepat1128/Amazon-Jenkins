@@ -7,7 +7,7 @@
         stage('Checkout Code') {
             steps {
                 // Checkout your actual GitHub repo and correct branch with credentials
-                git url: 'https://github.com/deepat1128/Amazon-Jenkins', branch: 'feature', credentialsId: 'deepaoum1128@gmail.com'
+                git url: 'https://github.com/deepat1128/Amazon-Jenkins', branch: 'feature', credentialsId: 'deept1128'
             }
         }
         stage('compile') {
