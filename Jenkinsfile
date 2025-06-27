@@ -29,7 +29,7 @@
                 script {
                     def SLACK_WEBHOOK_URL = 
 'https://hooks.slack.com/services/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' 
-                    def message = '{"text": "Jenkins Build Started for Amazon Project."}'
+                    def MESSAGE = '{"text": "Jenkins Build Started for Amazon Project."}'
 
                     sh '''
   curl -X POST -H 'Content-type: application/json'  
@@ -45,13 +45,13 @@ post {
   
         success {
           environment {
-  message = '{"text": "Jenkins Build SUCCESS for Amazon Project."}'
+  MESSAGE = '{"text": "Jenkins Build SUCCESS for Amazon Project."}'
   SLACK_WEBHOOK_URL = 'https://hooks.slack.com/services/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'
 }
 
             script {
                 def SLACK_WEBHOOK_URL = 'https://hooks.slack.com/services/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'
-                def message = '{"text": "Jenkins Build SUCCESS for Amazon Project."}'
+                def MESSAGE = '{"text": "Jenkins Build SUCCESS for Amazon Project."}'
 
                 sh '''
   curl -X POST -H 'Content-type: application/json'  
@@ -65,7 +65,7 @@ post {
         failure {
             script {
                 def SLACK_WEBHOOK_URL = 'https://hooks.slack.com/services/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'
-                def message = '{"text": "Jenkins Build FAILED for Amazon Project."}'
+                def MESSAGE = '{"text": "Jenkins Build FAILED for Amazon Project."}'
 
                 sh '''
   curl -X POST -H 'Content-type: application/json'  
