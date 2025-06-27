@@ -27,14 +27,14 @@
   stage('Send Build Started Notification') {
             steps {
                 script {
-                    def slack_Webhook_Url = 
+                    def SLACK_WEBHOOK_URL = 
 'https://hooks.slack.com/services/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' 
                     def message = '{"text": "Jenkins Build Started for Amazon Project."}'
 
                     sh '''
   curl -X POST -H 'Content-type: application/json'  
        --data "${message}" 
-       ${slack_Webhook_Url}
+       ${SLACK_WEBHOOK_URL}
 '''
 
                 }
@@ -46,17 +46,17 @@ post {
         success {
           environment {
   message = '{"text": "Jenkins Build SUCCESS for Amazon Project."}'
-  slack_Webhook_Url = 'https://hooks.slack.com/services/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'
+  SLACK_WEBHOOK_URL = 'https://hooks.slack.com/services/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'
 }
 
             script {
-                def slack_Webhook_Url = 'https://hooks.slack.com/services/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'
+                def SLACK_WEBHOOK_URL = 'https://hooks.slack.com/services/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'
                 def message = '{"text": "Jenkins Build SUCCESS for Amazon Project."}'
 
                 sh '''
   curl -X POST -H 'Content-type: application/json'  
        --data "${message}" 
-       ${slack_Webhook_Url}
+       ${SLACK_WEBHOOK_URL}
 '''
 
             }
@@ -64,13 +64,13 @@ post {
 
         failure {
             script {
-                def slack_Webhook_Url = 'https://hooks.slack.com/services/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'
+                def SLACK_WEBHOOK_URL = 'https://hooks.slack.com/services/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'
                 def message = '{"text": "Jenkins Build FAILED for Amazon Project."}'
 
                 sh '''
   curl -X POST -H 'Content-type: application/json'  
        --data "${message}" 
-       ${slack_Webhook_Url}
+       ${SLACK_WEBHOOK_URL}
 '''
 
             }
