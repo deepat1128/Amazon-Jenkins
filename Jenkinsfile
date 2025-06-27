@@ -21,7 +21,7 @@ pipeline {
             }
         }
 
-        stage('Send Slack Notification via curl') {
+        stage('slackSend(channel: '#jenkins-integration', message: 'Build SUCCESS', color: 'good', tokenCredentialId: 'A0932P68MFY'') {
             steps {
                 script {
                     def slackWebhookUrl = 'https://hooks.slack.com/services/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'
