@@ -7,7 +7,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 // Pull the code from GitHub repository
-                git url: 'https://github.com/deepat1128/Amazon-Jenkins', branch:'feature'  // Use the desired branch
+                git credentialsId: '19f61618-c255-4ff6-bdb0-29e90103adaa', url: 'https://github.com/deepat1128/Amazon-Jenkins', branch:'feature'  // Use the desired branch
             }
         }
 
