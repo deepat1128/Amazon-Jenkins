@@ -33,7 +33,7 @@
 
                     sh '''
   curl -X POST -H 'Content-type: application/json'  
-       --data '${message}' 
+       --data "${message}" 
        ${slackWebhookUrl}
 '''
 
@@ -55,7 +55,7 @@ post {
 
                 sh '''
   curl -X POST -H 'Content-type: application/json'  
-       --data '${message}' 
+       --data "${message}" 
        ${slackWebhookUrl}
 '''
 
@@ -69,7 +69,7 @@ post {
 
                 sh '''
   curl -X POST -H 'Content-type: application/json'  
-       --data '${message}' 
+       --data "${message}" 
        ${slackWebhookUrl}
 '''
 
