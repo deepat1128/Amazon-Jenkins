@@ -31,11 +31,11 @@
             steps {
                 script {
                     
-                    sh '''
-  curl -X POST -H 'Content-type: application/json'\  
-       --data '{"text": "Build notification from Jenkins"}'\ 
+                    sh """
+  curl -X POST -H 'Content-type: application/json'\\  
+       --data '{"text": "Build notification from Jenkins"}'\\ 
        ${SLACK_WEBHOOK_URL}
-'''
+"""
 
                 }
             }
@@ -48,11 +48,11 @@ post {
 
             script {
                 
-                sh '''
-  curl -X POST -H 'Content-type: application/json' \
-       --data '{"text": "Build successful"}' \
+                sh """
+  curl -X POST -H 'Content-type: application/json' \\
+       --data '{"text": "Build successful"}' \\
        ${SLACK_WEBHOOK_URL}
-'''
+"""
 
             }
         }
@@ -60,11 +60,11 @@ post {
         failure {
             script {
                 
-                sh '''
-  curl -X POST -H 'Content-type: application/json' \ 
-       --data '{"text": "Build failure"}' \
+                sh """
+  curl -X POST -H 'Content-type: application/json' \\ 
+       --data '{"text": "Build failure"}' \\
        ${SLACK_WEBHOOK_URL}
-'''
+"""
 
             }
         }
