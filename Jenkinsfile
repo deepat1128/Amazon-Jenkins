@@ -1,6 +1,6 @@
   pipeline {
     agent any
-    stages {
+        stages {
         stage('Checkout Code') {
             steps {
                 // Checkout your actual GitHub repo and correct branch with credentials
@@ -39,7 +39,13 @@
         }
     }
 post {
+  
         success {
+          environment {
+  message = '{"text": "Jenkins Build SUCCESS for Amazon Project."}'
+  slackWebhookUrl = 'https://hooks.slack.com/services/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'
+}
+
             script {
                 def slackWebhookUrl = 'https://hooks.slack.com/services/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'
                 def message = '{"text": "Jenkins Build SUCCESS for Amazon Project."}'
