@@ -28,7 +28,7 @@
             steps {
                 script {
                     def slackWebhookUrl = 
-‘https://hooks.slack.com/services/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’ 
+'https://hooks.slack.com/services/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' 
                     def message = '{"text": "Jenkins Build Started for Amazon Project."}'
 
                     sh """
@@ -41,7 +41,7 @@
 post {
         success {
             script {
-                def slackWebhookUrl = ‘https://hooks.slack.com/services/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'
+                def slackWebhookUrl = 'https://hooks.slack.com/services/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'
                 def message = '{"text": "Jenkins Build SUCCESS for Amazon Project."}'
 
                 sh """
@@ -52,7 +52,7 @@ post {
 
         failure {
             script {
-                def slackWebhookUrl = ‘https://hooks.slack.com/services/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'
+                def slackWebhookUrl = 'https://hooks.slack.com/services/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'
                 def message = '{"text": "Jenkins Build FAILED for Amazon Project."}'
 
                 sh """
