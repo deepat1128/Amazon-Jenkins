@@ -32,8 +32,11 @@
                     def message = '{"text": "Jenkins Build Started for Amazon Project."}'
 
                     sh """
-                    curl -X POST -H 'Content-type: application/json' \ --data '${message}'\ ${slackWebhookUrl}
-                    """
+  curl -X POST -H 'Content-type: application/json' \ 
+       --data '${message}' \
+       ${slackWebhookUrl}
+"""
+
                 }
             }
         }
@@ -51,8 +54,11 @@ post {
                 def message = '{"text": "Jenkins Build SUCCESS for Amazon Project."}'
 
                 sh """
-                curl -X POST -H 'Content-type: application/json' \ --data '${message}'\ ${slackWebhookUrl}
-                """
+  curl -X POST -H 'Content-type: application/json' \ 
+       --data '${message}' \
+       ${slackWebhookUrl}
+"""
+
             }
         }
 
@@ -62,8 +68,11 @@ post {
                 def message = '{"text": "Jenkins Build FAILED for Amazon Project."}'
 
                 sh """
-                curl -X POST -H 'Content-type: application/json' \--data '${message}'\ ${slackWebhookUrl}
-                """
+  curl -X POST -H 'Content-type: application/json' \ 
+       --data '${message}' \
+       ${slackWebhookUrl}
+"""
+
             }
         }
   always {
