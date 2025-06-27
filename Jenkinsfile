@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        PATH = "/usr/bin:/bin:/home/deepa/Devops/:$PATH"  // Explicitly add /usr/bin and other necessary paths
+        PATH = "/usr/bin/var/libs/jenkins/:$PATH"  // Explicitly add /usr/bin and other necessary paths
     }
     stages {
         stage('Checkout Code') {
