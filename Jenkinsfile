@@ -7,7 +7,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 // Pull the code from GitHub repository
-                git url: 'https://github.com/deepat1128/Amazon-Jenkins, branch: 'feature'  // Use the desired branch
+                git url: 'https://github.com/deepat1128/Amazon-Jenkins, branch:'feature'  // Use the desired branch
             }
         }
 
@@ -24,7 +24,7 @@ pipeline {
         stage('Send Slack Notification via curl') {
             steps {
                 script {
-                    def slackWebhookUrl = 'https://hooks.slack.com/services/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'
+                    def slackWebhookUrl = 'https://hooks.slack.com/services/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'
                     
                     // Determine the build status
                     def buildStatus = currentBuild.result ?: 'SUCCESS'  // Default to SUCCESS if not explicitly set
@@ -55,7 +55,7 @@ pipeline {
             // This block ensures that a message is sent regardless of success or failure
             script {
                 def buildStatus = currentBuild.result ?: 'SUCCESS'
-                def slackWebhookUrl = 'https://hooks.slack.com/services/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'
+                def slackWebhookUrl = 'https://hooks.slack.com/services/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'
                 def message = """
                 {
                     "text": "Jenkins Build Status: ${buildStatus}",
