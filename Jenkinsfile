@@ -1,77 +1,82 @@
-  pipeline {
+ pipeline {
     agent any
     environment {
-    SLACK_WEBHOOK_URL = 'https://hooks.slack.com/services/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'
-}
-        stages {
+        PATH = "/usr/bin:$PATH"  
+	// Explicitly add /usr/bin and other necessary paths
+    }
+    stages {
         stage('Checkout Code') {
             steps {
-                // Checkout your actual GitHub repo and correct branch with credentials
-                git url: 'https://github.com/deepat1128/Amazon-Jenkins', branch: 'feature', credentialsId: 'deept1128'
-            }
-        }
-        stage('compile') {
-            steps {
-                script {
-                    echo "Starting Maven Build..."
-                    sh 'mvn compile'
-                }
+                // Pull the code from the GitHub repository
+                git url: 'https://github.com/deepat1128/Amazon-Jenkins', branch: 'feature'  
+		// Use the desired branch
             }
         }
 
-        stage('Build Project') {
+        stage('Build') {
             steps {
                 script {
-                    echo "Starting Maven Build..."
+                    // Running the Maven build command
+                    echo "Building the project..."
                     sh 'mvn clean install'
                 }
             }
         }
-  stage('Send Build Started Notification') {
+
+        stage('Send Slack Notification via curl') {
             steps {
                 script {
+                    def slackWebhookUrl = 'https://hooks.slack.com/services/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'
                     
-                    sh """
-  curl -X POST -H 'Content-type: application/json'\\  
-       --data '{"text": "Build notification from Jenkins"}'\\ 
-       ${SLACK_WEBHOOK_URL}
-"""
+                    // Determine the build status
+                    def buildStatus = currentBuild.result ?: 'SUCCESS'  // Default to SUCCESS if not explicitly set
 
+                    // Create message based on build result
+                    def message = """
+                    {
+                        "text": "Jenkins Build Status: ${buildStatus}",
+                        "attachments": [
+                            {
+                                "text": "Build ${buildStatus}",
+                                "color": "${buildStatus == 'SUCCESS' ? 'good' : 'danger'}"
+                            }
+                        ]
+                    }
+                    """
+                    
+                    // Send Slack notification with build status
+                    sh """
+                    curl -X POST -H 'Content-type: application/json' --data '${message}' ${slackWebhookUrl}
+                    """
                 }
             }
         }
     }
-post {
-  
-        success {
-          
-
+    post {
+        always {
+            // This block ensures that a message is sent regardless of success or failure
             script {
+                def buildStatus = currentBuild.result ?: 'SUCCESS'
+                def slackWebhookUrl = 'https://hooks.slack.com/services/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'
+                def message = """
+                {
+                    "text": "Jenkins Build Status: ${buildStatus}",
+                    "attachments": [
+                        {
+                            "text": "Build ${buildStatus}",
+                            "color": "${buildStatus == 'SUCCESS' ? 'good' : 'danger'}"
+                        }
+                    ]
+                }
+                """
                 
+                // Send the build status notification to Slack
                 sh """
-  curl -X POST -H 'Content-type: application/json' \\
-       --data '{"text": "Build successful"}' \\
-       ${SLACK_WEBHOOK_URL}
-"""
-
+                curl -X POST -H 'Content-type: application/json' --data '${message}' ${slackWebhookUrl}
+                """
             }
-        }
-
-        failure {
-            script {
-                
-                sh """
-  curl -X POST -H 'Content-type: application/json' \\ 
-       --data '{"text": "Build failure"}' \\
-       ${SLACK_WEBHOOK_URL}
-"""
-
-            }
-        }
-  always {
-            echo "Build completed — Slack notified."
         }
     }
 }
 
-        
+  
