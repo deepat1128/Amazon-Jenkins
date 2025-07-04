@@ -54,7 +54,7 @@
     }
     post {
         always {
-            // This block ensures that a message is sent regardless of success or failure
+            // This block ensures that a message is been sent regardless of success or failure
             script {
                 def buildStatus = currentBuild.result ?: 'SUCCESS'
                 def slackWebhookUrl = 'https://hooks.slack.com/services/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'
