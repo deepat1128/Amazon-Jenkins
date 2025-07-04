@@ -7,7 +7,7 @@
     stages {
         stage('Checkout Code') {
             steps {
-                // Pull the code  from the GitHub repository
+                // Pull the code  from  the GitHub repository
                 git url: 'https://github.com/deepat1128/Amazon-Jenkins', branch: 'feature'  
 		// Use this desired branch
             }
