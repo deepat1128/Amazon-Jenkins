@@ -9,7 +9,7 @@
             steps {
                 // Pull the code from the GitHub repository
                 git url: 'https://github.com/deepat1128/Amazon-Jenkins', branch: 'feature'  
-		// Use the desired branch
+		// Use this desired branch
             }
         }
 
